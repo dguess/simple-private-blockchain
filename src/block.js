@@ -69,9 +69,7 @@ class Block {
             const blockBody = JSON.parse(hex2ascii(self.body));
 
             // Resolve with the data if the object isn't the Genesis block
-            if (blockBody === 'Genesis Block') {
-                reject("Error - genesis block")
-            } else {
+            if (blockBody !== 'Genesis Block') {
                 resolve(blockBody);
             }
         });           
