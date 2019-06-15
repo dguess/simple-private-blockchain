@@ -73,7 +73,7 @@ class Blockchain {
             }
 
             block.time = Date.now();
-            block.height = self.height++;
+            block.height = ++self.height;
             block.hash = SHA256(JSON.stringify(block));
 
             this.chain.push(block);     
