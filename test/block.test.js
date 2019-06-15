@@ -1,10 +1,10 @@
-const BlockchainClass = require('../src/blockchain');
-const BlockClass = require('../src/block');
+const Blockchain = require('../src/blockchain').Blockchain;
+const Block = require('../src/block').Block;
 
 test('the block that has not been tampered with', () => {
   // create new block
-  let blockchain = new BlockchainClass.Blockchain();
-  blockchain._addBlock(new BlockClass.Block({ data: 'Test Block' }));
+  let blockchain = new Blockchain();
+  blockchain._addBlock(new Block({ data: 'Test Block' }));
 
   return blockchain.getBlockByHeight(1)
     .then(block => {
@@ -19,8 +19,8 @@ test('the block that has not been tampered with', () => {
 
 test('the block has been tampered with', () => {
   // create new block and mess with the hash
-  let blockchain = new BlockchainClass.Blockchain();
-  blockchain._addBlock(new BlockClass.Block({ data: 'Test Block' }));
+  let blockchain = new Blockchain();
+  blockchain._addBlock(new Block({ data: 'Test Block' }));
   blockchain.chain[1].hash = blockchain.chain[1].hash + 'changed';
 
   return blockchain.getBlockByHeight(1)
@@ -36,8 +36,8 @@ test('the block has been tampered with', () => {
 
 test('the block has data in it', () => {
   // create new block 
-  let blockchain = new BlockchainClass.Blockchain();
-  blockchain._addBlock(new BlockClass.Block({ data: 'Test Block' }));
+  let blockchain = new Blockchain();
+  blockchain._addBlock(new Block({ data: 'Test Block' }));
 
   // get the block data
   return blockchain.getBlockByHeight(1)
@@ -54,7 +54,7 @@ test('the block has data in it', () => {
 
 test('the genesis block returns an error when you try and get the data', () => {
   // create new block 
-  let blockchain = new BlockchainClass.Blockchain();
+  let blockchain = new Blockchain();
 
   // get the block data
   return blockchain.getBlockByHeight(0)
@@ -67,4 +67,17 @@ test('the genesis block returns an error when you try and get the data', () => {
 
   })
 
+});
+
+test('the block was added to the blockchain with the correct previous hash', () => {
+  // create new block
+  let blockchain = new Blockchain();
+  blockchain._addBlock(new Block({ data: 'Test Block' }));
+
+  return blockchain.getBlockByHeight(1)
+    .then(block => {
+      // validate the block
+      expect(block.previousBlockHash === blockchain.chain[0].hash).toBe(true);
+
+    })
 });
