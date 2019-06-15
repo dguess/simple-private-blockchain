@@ -180,7 +180,7 @@ class Blockchain {
         let stars = [];
         return new Promise((resolve, reject) => {
 
-            for (let i = 0; i < self.chain.length; i++) {
+            for (let i = 1; i < self.chain.length; i++) {
                 self.chain[i].getBData().then(function(data){ 
                     if (data.address === address) {
                         stars.push(data); 
@@ -201,7 +201,21 @@ class Blockchain {
         let self = this;
         let errorLog = [];
         return new Promise(async (resolve, reject) => {
-            
+
+            for (let i = 1; i < self.chain.length; i++) {
+                self.chain[i].validate().then(function(isValid) { 
+                    // if the block is invalid then add to the error log
+                    if (!isValid) {
+                        errorLog.push("Error: Block " + self.chain[0].height + " is not valid"); 
+                    }
+
+                    // check the has of the previous block hash is valid
+                    if (self.chain[i].previousBlockHash !==  self.chain[i - 1].hash) {
+                        errorLog.push("Error: Block " + self.chain[0].height + " has an invalid previous block hash"); 
+                    }
+                });
+            }
+            resolve(errorLog);
         });
     }
 
