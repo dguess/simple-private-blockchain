@@ -122,15 +122,15 @@ class Blockchain {
             // Check if the time elapsed is less than 5 minutes
             if (currentTime - messageTime > 300) {
                 reject("Message time is more than 5 minutes old");
-            }
-
-            // Verify the message with wallet address and signature and add the block if verified
-            if (!bitcoinMessage.verify(message, address, signature)) {
+            
+             // Verify the message with wallet address and signature and add the block if verified               
+            } else if (!bitcoinMessage.verify(message, address, signature)) {
                 reject("Unable to verify block");               
-            }
 
             // Create the block and add it to the chain
-            resolve(self._addBlock(new BlockClass.Block({address, signature, message, star})));
+            } else {
+                resolve(self._addBlock(new BlockClass.Block({address, signature, message, star})));
+            }
         });
     }
 
