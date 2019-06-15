@@ -130,7 +130,7 @@ class Blockchain {
             }
 
             // Create the block and add it to the chain
-            resolve(self._addBlock(new Block(star)));
+            resolve(self._addBlock(new BlockClass.Block({address, signature, message, star})));
         });
     }
 
@@ -143,7 +143,7 @@ class Blockchain {
     getBlockByHash(hash) {
         let self = this;
         return new Promise((resolve, reject) => {
-           const block = resolve(self.chain.filter(block => block.hash === hash)[0]);
+           const block = self.chain.filter(b => b.hash === hash)[0];
            if (block){
                 resolve(block);
             } else {
@@ -179,7 +179,15 @@ class Blockchain {
         let self = this;
         let stars = [];
         return new Promise((resolve, reject) => {
-            
+
+            for (let i = 0; i < self.chain.length; i++) {
+                self.chain[i].getBData().then(function(data){ 
+                    if (data.address === address) {
+                        stars.push(data); 
+                    }
+                });
+            }
+            resolve(stars);
         });
     }
 
