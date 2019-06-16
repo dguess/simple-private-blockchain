@@ -206,12 +206,12 @@ class Blockchain {
                 self.chain[i].validate().then(function (isValid) {
                     // if the block is invalid then add to the error log
                     if (!isValid) {
-                        errorLog.push("Error: Block " + self.chain[0].height + " is not valid");
+                        errorLog.push("Error: Block " + self.chain[i].height + " is not valid");
                     }
 
                     // check the has of the previous block hash is valid
-                    if (self.chain[i].previousBlockHash !== self.chain[i - 1].hash) {
-                        errorLog.push("Error: Block " + self.chain[0].height + " has an invalid previous block hash");
+                    if (String(self.chain[i].previousBlockHash) !== String(self.chain[i - 1].hash)) {
+                        errorLog.push("Error: Block " + self.chain[i].height + " has an invalid previous block hash");
                     }
                 });
             }
