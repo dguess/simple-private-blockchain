@@ -14,8 +14,11 @@ This project was to build a simple private blockchain.
 2. Make  first request of ownership sending your wallet address:
     ![Request: http://localhost:8000/requestValidation ](./docs/request-validation.png)
 
-3. Submit your Star
+3. Sign the message using Electrum:
+    ![Request: http://localhost:8000/requestValidation ](./docs/sign-message.png)
+
+4. Submit your Star
      ![Request: http://localhost:8000/submitstar](./docs/submit-star.png)
 
-4. Retrieve Stars owned by me
+5. Retrieve Stars owned by me
     ![Request: http://localhost:8000/blocks/<WALLET_ADDRESS>](./docs/get-stars-by-address.png)
