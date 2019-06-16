@@ -66,7 +66,7 @@ class Block {
      */
     getBData() {
         let self = this;
-        return new Promise((resolve, reject) => {        
+        return new Promise((resolve, reject) => {
             // Getting the encoded data saved in the Block
             // Decoding the data to retrieve the JSON representation of the object
             // Parse the data to an object to be retrieve.
@@ -76,7 +76,7 @@ class Block {
             if (blockBody.data !== 'Genesis Block') {
                 resolve(blockBody);
             } else {
-                reject("Error cannot get data for genesis block");               
+                reject("Error cannot get data for genesis block");
             }
         });
     }
