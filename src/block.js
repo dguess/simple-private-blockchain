@@ -43,12 +43,15 @@ class Block {
 
             // Recalculate the hash of the Block
             self.hash = null;
-            self.hash = String(SHA256(JSON.stringify(self)));
- 
+            const recalculatedHash = String(SHA256(JSON.stringify(self)));
+
+            // Set the hash back to the original hash
+            self.hash = currentHash;
+
             // Comparing if the hashes changed
             // Returning the Block is not valid         
             // Returning the Block is valid
-            resolve(currentHash === self.hash);
+            resolve(currentHash === recalculatedHash);
         });
     }
 
@@ -63,7 +66,7 @@ class Block {
      */
     getBData() {
         let self = this;
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {        
             // Getting the encoded data saved in the Block
             // Decoding the data to retrieve the JSON representation of the object
             // Parse the data to an object to be retrieve.

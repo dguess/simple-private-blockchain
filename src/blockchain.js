@@ -74,7 +74,7 @@ class Blockchain {
 
             block.time = Date.now();
             block.height = ++self.height;
-            block.hash = SHA256(JSON.stringify(block));
+            block.hash = SHA256(JSON.stringify(block)).toString();
 
             this.chain.push(block);
 
@@ -181,11 +181,15 @@ class Blockchain {
         return new Promise((resolve, reject) => {
 
             for (let i = 1; i < self.chain.length; i++) {
-                self.chain[i].getBData().then(function (data) {
+                self.chain[i].getBData()
+                .then( data => {
                     if (data.address === address) {
-                        stars.push(data);
+                        stars.push({
+                            owner: address,
+                            star: data.star
+                        });
                     }
-                });
+                })
             }
             resolve(stars);
         });

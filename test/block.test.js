@@ -2,8 +2,8 @@ const Blockchain = require('../src/blockchain').Blockchain;
 const Block = require('../src/block').Block;
 
 const address = "1QTjurwpLqq5fCaPVt6Tjc31xUgfscduV";
-const message = "1QTjurwpLqq5fCaPVt6Tjc31xUgfscduV:1560653634:starRegistry";
-const signature = "H0i/iGYnBNj9cvUxC6HHUA8WNj0WVtreybhVwNqbhbIXarSb4gutWBlcn9zN1EyI858tlTkxnd/mQ7F89GO6Nx4=";
+const message = "1QTjurwpLqq5fCaPVt6Tjc31xUgfscduV:1560684278:starRegistry";
+const signature = "IE5KSU3/eNI8RU4lWmOY4QzOepKo8jKxcxy0vE75qtUoOSS/1ufWvHnR149LpHFK14vjaS88tF/4ViM+381u0TM=";
 const star = "test star"
 
 test('the block that has not been tampered with', () => {
@@ -48,10 +48,9 @@ test('the block has data in it', () => {
   return blockchain.getBlockByHeight(1)
     .then(block => {
       return block.getBData();
-
-    }).then(body => {
+    })
+    .then(body => {
       expect(body.data).toBe('Test Block');
-
     })
 
 });
@@ -64,10 +63,8 @@ test('the genesis block returns an error when you try and get the data', () => {
   return blockchain.getBlockByHeight(0)
     .then(block => {
       return block.getBData();
-
     }).catch(error => {
       expect(error).toBe('Error cannot get data for genesis block');
-
     })
 
 });
